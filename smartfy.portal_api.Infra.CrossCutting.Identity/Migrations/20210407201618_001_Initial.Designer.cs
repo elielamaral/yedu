@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
@@ -9,9 +10,10 @@ using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210407201618_001_Initial")]
+    partial class _001_Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +29,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -43,8 +42,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -150,10 +147,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 
                     b.Property<bool>("Enabled");
 
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -164,21 +157,13 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
-                    b.Property<string>("Password");
-
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("RoleId");
-
                     b.Property<string>("SecurityStamp");
-
-                    b.Property<int>("Status");
-
-                    b.Property<string>("Token");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -193,8 +178,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -411,15 +394,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.ToTable("WhiteLabel");
                 });
 
-            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Role", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator().HasValue("Role");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -463,13 +437,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("smartfy.portal_api.Infra.CrossCutting.Identity.Entities.ApplicationUser", b =>
-                {
-                    b.HasOne("smartfy.portal_api.domain.Entities.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Asset", b =>

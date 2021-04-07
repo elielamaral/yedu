@@ -75,9 +75,9 @@ namespace smartfy.portal_api.services.WebAPI
                     c.SwaggerDoc("v1",
                         new Info
                         {
-                            Title = "TECH TALKS API",
+                            Title = "YEDU API",
                             Version = "v1",
-                            Description = "API REST criada para uso do portal",
+                            Description = "YEDU REST API",
                             Contact = new Contact
                             {
                                 Name = "Smartfy",
@@ -139,9 +139,9 @@ namespace smartfy.portal_api.services.WebAPI
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json","TECH TALKS API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "YEDU API");
                 c.RoutePrefix = "docs";
-                c.DocumentTitle = "TECH TALKS API";
+                c.DocumentTitle = "YEDU API";
                 c.InjectStylesheet("/docs/SwaggerHeader.css");
             });
             app.UseMvc();

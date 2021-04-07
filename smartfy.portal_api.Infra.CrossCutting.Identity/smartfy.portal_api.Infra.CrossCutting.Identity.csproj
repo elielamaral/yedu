@@ -5,6 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20210407201618_001_Initial.cs" />
+    <Compile Include="Migrations\20210407201618_001_Initial.Designer.cs" />
+    <Compile Include="Migrations\20210407230924_002.cs" />
+    <Compile Include="Migrations\20210407230924_002.Designer.cs" />
+    <Compile Include="Migrations\20210407231518_003.cs" />
+    <Compile Include="Migrations\20210407231518_003.Designer.cs" />
+    <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />

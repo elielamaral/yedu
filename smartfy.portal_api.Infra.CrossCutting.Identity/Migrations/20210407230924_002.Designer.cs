@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
@@ -9,9 +10,10 @@ using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210407230924_002")]
+    partial class _002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,7 +174,9 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("RoleId");
+                    b.Property<Guid>("RoleId");
+
+                    b.Property<string>("RoleId1");
 
                     b.Property<string>("SecurityStamp");
 
@@ -194,7 +198,7 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RoleId1");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -469,7 +473,7 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                 {
                     b.HasOne("smartfy.portal_api.domain.Entities.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId1");
                 });
 
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Asset", b =>
