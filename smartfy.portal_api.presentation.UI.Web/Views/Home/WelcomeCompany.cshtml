@@ -1,0 +1,602 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="row">
+    <div class="col-6 text-left"><p style="font-weight:900">Bem vindo, @User.Identity.Name</p></div>
+    @*<div class="col-6 text-right">
+        <button id="btnTour" type="button" class="btn btn-primary"><span class="cil-user btn-icon text-center">FAÇA UM TOUR</span></button>
+        <button id="btnWizard" type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#ModalHelp">
+            <span class="cil-contrast btn-icon text-center">AJUDA</span>
+        </button>
+    </div>*@
+</div>
+<!--<div id="mainDemo" class="row" style="margin-top: 50px;">
+
+    <div>
+        <div class="row" hidden="">
+            <div class="col-12">
+                <div class="card text-white bg-info">
+                    <div class="card-header">Filtro de Datas</div>
+                    <div class="card-body">
+                        <input class="form-control" type="text" name="datetimes">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" hidden="">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Parceiras &amp; Equipes</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <canvas id="chartDaysByTeam"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card" style="height: 93%;">
+                    <div id="tourStatus" class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-value-lg font-7xl" id="systemStatus"></div>
+                            <small class="text-white text-value-lg font-1xl">Status do Sistema</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card">
+                    <div id="tourTotEquipes" class="card-body p-3 d-flex align-items-center">
+                        <div class="bg-gradient-success p-3 mfe-3">
+                            <svg class="c-icon c-icon-xl">
+                                <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-bus-alt"></use>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-value-lg" id="teamsCount"></div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Total de equipes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="tourTotParceiras" class="card-body p-3 d-flex align-items-center">
+                        <div class="bg-gradient-warning p-3 mfe-3">
+                            <svg class="c-icon c-icon-xl">
+                                <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-car-alt"></use>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-value-lg" id="partnersCount"></div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Total de Parceiras</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="tourTotCameras" class="card-body p-3 d-flex align-items-center">
+                        <div class="bg-gradient-not-ok p-3 mfe-3">
+                            <svg class="c-icon c-icon-xl">
+                                <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-video"></use>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-value-lg" id="camerasCount"></div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Total de câmeras</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card">
+                    <div id="tourTotNCEquipes" class="card-body bg-gradient-not-ok">
+                        <div class="text-value-lg font-2xl" id="notOkTeamsCount"></div>
+                        <div>Equipes Nâo Conformes</div>
+                        <div class="progress progress-white progress-xs my-2">
+                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div><small class="text-white">Equipes com menos de <span class="desc"></span></small>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="tourTotCEquipes" class="card-body bg-gradient-success">
+                        <div class="text-value-lg font-2xl" id="OkTeamsCount"></div>
+                        <div>Equipes Conformes</div>
+                        <div class="progress progress-white progress-xs my-2">
+                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div><small class="text-white">Equipes com mais de <span class="desc"></span></small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card">
+                    <div id="tourTotServicos" class="card-body p-3 d-flex align-items-center">
+                        <div class="bg-gradient-not-ok p-3 mfe-3">
+                            <svg class="c-icon c-icon-xl">
+                                <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-money"></use>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-value-lg" id="servicesCount">0</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Quantidade de serviços solicitados</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="tourTotGravacoes" class="card-body p-3 d-flex align-items-center">
+                        <div class="bg-gradient-warning p-3 mfe-3">
+                            <svg class="c-icon c-icon-xl">
+                                <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-video"></use>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-value-lg" id="activityRecCount">0</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Gravações de atividades</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="tourPercGravacoes" class="card-body p-3 d-flex align-items-center">
+                        <div class="bg-gradient-success p-3 mfe-3">
+                            <svg class="c-icon c-icon-xl">
+                                <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-truck"></use>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-value-lg" id="recPercentage">0%</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Percentual de gravações</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <!-- /.col-->
+    <!--</div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card overflow-hidden">
+                <div id="tourHourlyAvgTeam" class="card-body p-0 d-flex align-items-center">
+                    <div class="bg-gradient-info p-4 mfe-3">
+                        <svg class="c-icon c-icon-xl">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-check"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-value text-info" id="HoursPerWeekOfTeamsAverage"></div>
+                        <div class="text-muted text-uppercase font-weight-bold small">Média de horas/dia por equipe</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card overflow-hidden">
+                <div id="tourDailyAvgTeam" class="card-body p-0 d-flex align-items-center">
+                    <div class="bg-gradient-success p-4 mfe-3">
+                        <svg class="c-icon c-icon-xl">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-camera-control"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-value text-info" id="DaysPerWeekOfTeamsAverage"></div>
+                        <div class="text-muted text-uppercase font-weight-bold small">Média de dias por equipe</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card overflow-hidden">
+                <div id="tourExpansao" class="card-body p-0 d-flex align-items-center">
+                    <div class="bg-gradient-warning p-4 mfe-3">
+                        <svg class="c-icon c-icon-xl">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-view-quilt"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-value text-info" id="LastWeekCamerasCount"></div>
+                        <div class="text-muted text-uppercase font-weight-bold small">Expansão Última semana</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card overflow-hidden">
+                <div id="tourTotGBs" class="card-body p-0 d-flex align-items-center">
+                    <div class="bg-gradient-not-ok p-4 mfe-3">
+                        <svg class="c-icon c-icon-xl">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-storage"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-value text-info" id="FileSize"></div>
+                        <div class="text-muted text-uppercase font-weight-bold small">Dados Totais</div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <!-- /.col-->
+    <!--</div>
+    <div class="card" hidden>
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h4 class="card-title mb-0">Traffic</h4>
+                    <div class="small text-muted">September 2019</div>
+                </div>
+                <div class="btn-toolbar d-none d-md-block" role="toolbar" aria-label="Toolbar with buttons">
+                    <div class="btn-group btn-group-toggle mx-3" data-toggle="buttons">
+                        <label class="btn btn-outline-secondary">
+                            <input id="option1" type="radio" name="options" autocomplete="off"> Day
+                        </label>
+                        <label class="btn btn-outline-secondary active">
+                            <input id="option2" type="radio" name="options" autocomplete="off" checked=""> Month
+                        </label>
+                        <label class="btn btn-outline-secondary">
+                            <input id="option3" type="radio" name="options" autocomplete="off"> Year
+                        </label>
+                    </div>
+                    <button class="btn btn-primary" type="button">
+                        <svg class="c-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-cloud-download"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="c-chart-wrapper" style="height:300px;margin-top:40px;">
+                <canvas class="chart" id="main-chart" height="300"></canvas>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row text-center">
+                <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                    <div class="text-muted">Visits</div><strong>29.703 Users (40%)</strong>
+                    <div class="progress progress-xs mt-2">
+                        <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                    <div class="text-muted">Unique</div><strong>24.093 Users (20%)</strong>
+                    <div class="progress progress-xs mt-2">
+                        <div class="progress-bar bg-gradient-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                    <div class="text-muted">Pageviews</div><strong>78.706 Views (60%)</strong>
+                    <div class="progress progress-xs mt-2">
+                        <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                    <div class="text-muted">New Users</div><strong>22.123 Users (80%)</strong>
+                    <div class="progress progress-xs mt-2">
+                        <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                    <div class="text-muted">Bounce Rate</div><strong>40.15%</strong>
+                    <div class="progress progress-xs mt-2">
+                        <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>-->
+<div class="row">
+    <div class="col-12 text-center">
+        <h5>Sua conta foi pré-cadastrada com sucesso.</h5>
+    </div>
+</div>
+@*WIZARD*@
+<div class="modal fade" id="ModalHelp" tabindex="-1" role="dialog" aria-labelledby="modalHelp" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: black !important; color: yellow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalHelp">DASHBOARD - Ajuda</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="smartwizard">
+                    <ul>
+                        <li><a href="#step-1">Passo 1<br /><small>Bem Vindo</small></a></li>
+                        <li><a href="#step-2">Passo 2<br /><small>Bases de Atendimento</small></a></li>
+                        <li><a href="#step-3">Passo 3<br /><small>Empresas Parceiras</small></a></li>
+                        <li><a href="#step-4">Passo 4<br /><small>Equipes e Câmeras</small></a></li>
+                        <li><a href="#step-5">Passo 5<br /><small>Dúvidas</small></a></li>
+                    </ul>
+                    <div>
+                        <div id="step-1">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-5 mb-2 text-center">
+                                    Bem vindo <b>@User.Identity.Name</b>.
+                                    <br />
+                                    <br />
+                                    Seu cadastro foi enviado para suporte.sp@powerconn.us. Nosso time entrará em contato em breve. <br />
+                                    Vamos mostrar agora as etapas de gestão das sua empresas parceiras.
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-2" class="">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-1 mb-2 text-center">
+                                    <div class="col-md-12">
+                                        <img src="~/images/wizard/cad-area.png" />
+                                    </div>
+                                    <span>
+                                        Após cadastro confirmado pelo nosso time, cadastre as Bases de atendimento da sua empresa
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-3">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-1 mb-2 text-center">
+                                    <div class="col-md-12">
+                                        <img src="~/images/wizard/lista-parceira.png" />
+                                    </div>
+                                    <span>
+                                        Consulte as empreas parceiras vinculadas à sua empresa. <br />O cadastro das parceiras poderá ser feito pelas mesmas
+                                        porém o vínculo será feito pelo nosso time de atendimento.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-4" class="">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-1 mb-2 text-center">
+                                    <div class="col-md-12">
+                                        <img src="~/images/wizard/lista-equipe.png" />
+                                    </div>
+                                    <span>
+                                        Consulte a divisão das equipes das suas parceiras em suas Bases de atendimento.<br /> O cadastro das equipes deverá ser feito pela própria parceira.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-5" class="">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-2 mb-2 text-center">
+                                    <div class="col-md-12 mt-5 mb-2 text-center">
+                                        Seu cadastro está em verificação pelo nosso time.
+                                        <br />
+                                        Em caso de dúvidas ou solicitações enviar e-mail para <br /> <br /> <strong>suporte.sp@powerconn.us</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="~/lib/jquery.tmpl.min.js"></script>
+    <script src="~/js/jquery.guide.js"></script>
+    @*WIZARD*@
+    <script type='text/javascript' src='~/wizard/js/main.js'></script>
+    <link href="~/wizard/css/smart_wizard.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/wizard/css/smart_wizard_theme_dots.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/wizard/js/jquery.smartWizard.min.js" charset="ISO-8859-1"></script>
+
+    <script type="text/javascript">
+
+        function cardText(titulo, conteudo) {
+            return `<div style='background-color: black; border-radius: 10px; padding: 15px; text-align: center;border: 1px solid #424242;'>
+                            <h4 style='color: yellow;'>` + titulo + `</h4>
+                            <img class='round' width='99' height='34' src='/images/logo.png' style="position: absolute;left: 34%;opacity: 0.15;" />
+                            <p> <h6 style='color: yellow;'>` + conteudo + `</h6></p>
+                            </div>`
+        }
+
+        $('#btnTour').click(function () {
+            $("#mainDemo").fadeTo("slow",
+                2.0,
+                function () {
+                    startGuide();
+                });
+        });
+
+        const data = {
+            "teamsCount": 500,
+            "lastWeekCameras": 12,
+            "notConformTeams": 15,
+            "camerasCount": 5000,
+            "camerasInOperationCount": 13 + '/64%',
+            "partners": [
+                {
+                    "id": "00176cc6-7866-41b6-a3bc-c4d30c8706e2",
+                    "name": "Empresa 002",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 39.15
+                }, {
+                    "id": "3b3dd63a-4784-4551-a7b8-9692415559ad",
+                    "name": "Empresa 003",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "beed8fc8-dbc1-4723-986a-6fbf8f3f6b50",
+                    "name": "Empresa 004",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "1488b162-1581-4dde-9cf6-631e964ade51",
+                    "name": "Empresa 005",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "6a18e44f-ba44-4de1-8f79-27d3e8636e8a",
+                    "name": "Empresa 006",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "cf715321-fd9c-4005-8f6c-8d46b4bcc540",
+                    "name": "Empresa 007",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "1a4fe06a-cd28-4b65-b6eb-029f2f24e53b",
+                    "name": "Empresa 008",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "ff4b9a05-0312-42d5-b873-42951f82f62e",
+                    "name": "Empresa 009",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "fed0d7d6-337e-402d-a53f-2f685dbae9f3",
+                    "name": "Empresa 001",
+                    "registered": "21/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "da0f5222-98f7-4ffe-a7d8-df29833a9e23",
+                    "name": "Empresa 000",
+                    "registered": "21/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }
+            ],
+            "avgDaysByTeam": 15.82,
+            "avgHoursByDayByTeam": 379.77
+        };
+
+        setTimeout(function () {
+            $('#partners-table tbody tr').empty();
+            $('#camerasCount').text(data.camerasCount);
+            $('#partnersCount').text(data.partners.length);
+            $('#teamsCount').text(data.teamsCount);
+            $('#camerasInOperationCount').text(data.camerasInOperationCount);
+            $('#avgDaysByTeam').text(data.avgDaysByTeam);
+            $('#avgHoursByDayByTeam').text(data.avgHoursByDayByTeam);
+            $('#lastWeekCameras').text(data.lastWeekCameras);
+            $('#notConformTeams').text(data.notConformTeams);
+        },
+            1500);
+
+        var guideIsProgress = false;
+        var startGuide = function () {
+
+            if (guideIsProgress) return;
+            guideIsProgress = true;
+
+            var guide = $.guide({
+                actions: [
+                    {
+                        element: $('#tourStatus'),
+                        content: cardText("Status do Sistema", "Percentual geral de metas diárias das empresas parceiras"),
+                        offsetX: 275,
+                        offsetY: 100
+                    },
+                    {
+                        element: $('#tourTotEquipes'),
+                        content: cardText("Equipes", "Total de equipes cadastradas de todas as empresas parceiras"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotParceiras'),
+                        content: cardText("Parceiras", "Total de empresas parceiras cadastradas"),
+                        offsetX: 250,
+                        offsetY: 0,
+                    },
+                    {
+                        element: $('#tourTotCameras'),
+                        content: cardText("Câmeras", "Total de cameras cadastradas."),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotNCEquipes'),
+                        content: cardText("Equipes", "Total de equipes que estão no status Não Conformes"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotCEquipes'),
+                        content: cardText("Equipes", "Total de equipes que estão no status Conformes"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotServicos'),
+                        content: cardText("Serviços", "Total de solicitações cadastradas"),
+                        offsetX: -250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotGravacoes'),
+                        content: cardText("Gravações", "Total de gravações feitas pelas Equipes"),
+                        offsetX: -250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourPercGravacoes'),
+                        content: cardText("Gravações", "Porcentagem das gravações"),
+                        offsetX: -250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourHourlyAvgTeam'),
+                        content: cardText("Equipes", "Total de média de Hora/Dia por cada equipe"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourDailyAvgTeam'),
+                        content: cardText("Equipes", "Total da média de dias cadastradas por Equipe"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourExpansao'),
+                        content: cardText("Expansao", "Total da expansão da última semana"),
+                        offsetX: -250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotGBs'),
+                        content: cardText("Dados", "Total de Dados gerados"),
+                        offsetX: -250,
+                        offsetY: 0,
+                        beforeFunc: function (g) {
+                            guideIsProgress = false;
+                        }
+                    }
+                ]
+            });
+        }
+
+    </script>
+
+}

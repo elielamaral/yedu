@@ -176,8 +176,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<int>("Status");
-
                     b.Property<string>("Token");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -193,8 +191,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -463,13 +459,6 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("smartfy.portal_api.Infra.CrossCutting.Identity.Entities.ApplicationUser", b =>
-                {
-                    b.HasOne("smartfy.portal_api.domain.Entities.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Asset", b =>

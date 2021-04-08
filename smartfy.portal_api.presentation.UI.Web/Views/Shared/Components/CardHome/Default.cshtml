@@ -1,0 +1,21 @@
+﻿@model List<string>
+<div class="col-xl-3 col-md-6">
+    <div class="card">
+        <a asp-controller="@Model[0]" asp-action="Index" style="text-decoration: none">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col">
+                        <div class="text-xs font-weight-bold text-@Model[3] text-uppercase">
+                            <h3>@Model[1]</h3>
+                        </div>
+                    </div>
+                    <div>
+                        <svg class="c-sidebar-nav-icon" style="height: 60px; width: 30px; color: white">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-@Model[2]"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

@@ -31,6 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataManager", "DataManager"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartfy.portal_api.Infra.DataManager", "smartfy.portal_api.Infra.DataManager\smartfy.portal_api.Infra.DataManager.csproj", "{72C69EC3-4827-4FEA-8DCD-43CF241CBDA4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{93D70268-8C55-4B22-93DA-C4B53E30B711}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smartfy.portal_api.presentation.UI.Web", "smartfy.portal_api.presentation.UI.Web\smartfy.portal_api.presentation.UI.Web.csproj", "{79E48F53-4F12-4EF0-BAA1-698CEA1455AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{72C69EC3-4827-4FEA-8DCD-43CF241CBDA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72C69EC3-4827-4FEA-8DCD-43CF241CBDA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72C69EC3-4827-4FEA-8DCD-43CF241CBDA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E48F53-4F12-4EF0-BAA1-698CEA1455AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E48F53-4F12-4EF0-BAA1-698CEA1455AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E48F53-4F12-4EF0-BAA1-698CEA1455AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E48F53-4F12-4EF0-BAA1-698CEA1455AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +84,7 @@ Global
 		{10B4FAC6-DA95-4880-8897-A4F77C781C38} = {418C3956-20BB-47D8-957D-48E2DC6EF4C0}
 		{DC5ACE9B-F575-438A-BC18-3B38562839A7} = {7AFF3DB8-DAA0-471A-B8AE-17496CD6955C}
 		{72C69EC3-4827-4FEA-8DCD-43CF241CBDA4} = {DC5ACE9B-F575-438A-BC18-3B38562839A7}
+		{79E48F53-4F12-4EF0-BAA1-698CEA1455AA} = {93D70268-8C55-4B22-93DA-C4B53E30B711}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {963F69AE-B88B-4BF6-B9B4-E51E12415027}

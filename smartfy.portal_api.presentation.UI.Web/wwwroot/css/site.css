@@ -1,0 +1,138 @@
+﻿.loading-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: table;
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 1050;
+    align-items: center;
+    cursor: progress;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+}
+
+.loading-image {
+    display: table-cell;
+    vertical-align: middle;
+    align-self: center;
+    width: auto;
+}
+
+.w-150 {
+    width: 150px;
+}
+
+.w-90 {
+    width: 90px !important;
+}
+
+.w-60 {
+    width: 60px !important;
+}
+
+.acoes {
+    width: 70px !important;
+}
+
+.buttons-excel {
+    color: white !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.daterangepicker .ranges li {
+    color: black !important;
+}
+
+    .daterangepicker .ranges li.active {
+        color: #000 !important;
+    }
+
+.font-7xl {
+    font-size: 85px !important;
+}
+
+tfoot {
+    display: table-header-group;
+}
+
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+        background-color: #12131d;
+        border: 1px solid #232430;
+        color: #ffffff;
+    }
+
+
+/* alterando style do combo*/
+.select2-dropdown {
+    background-color: #23242d;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    left: -100000px;
+    width: 100%;
+    z-index: 1051;
+}
+
+.select2-container--default .select2-results__option--selected {
+    background-color: #35363e;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #aaa;
+    background-color: #444;
+    color: #fff;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #393a42;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #FFF;
+    line-height: 28px;
+}
+
+.gj-tree-bootstrap-4 ul.gj-list-bootstrap li {
+    color: #FFFFFF !important;
+}
+
+.desabilitado {
+    background-color: #acacad !important;
+    color: #d4d4d4 !important;
+    border-color: #afafaf !important;
+    display: none !important;
+}
+.font-color{
+    color:white;
+}
+
+.sfy-container-hide{
+    display: none;
+}
+
+.sfy-container-success {
+    color: green;
+}
+
+.sfy-container-warning {
+    color: orange;
+}
+
+.sfy-container-error {
+    color: red;
+}

@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Entities;
 using smartfy.portal_api.Infra.CrossCutting.IoC;
+using smartfy.portal_api.presentation.UI.Web.Extensions;
 using smartfy.portal_api.services.WebAPI.Mappings;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
@@ -118,6 +119,8 @@ namespace smartfy.portal_api.services.WebAPI
 
             // Configurando AutoMapper
             services.AddSingleton(ConfigureIMapper.GetMapper());
+
+            services.BuildServiceProvider().CreateRoles();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

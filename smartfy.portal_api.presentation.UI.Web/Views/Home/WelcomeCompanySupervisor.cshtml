@@ -1,0 +1,26 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="row">
+    <div class="col-6 text-left"><p style="font-weight:900">Bem vindo, @User.Identity.Name</p></div>
+</div>
+
+@section Scripts
+    {
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="~/lib/jquery.tmpl.min.js"></script>
+    <script src="~/js/jquery.guide.js"></script>
+    @*WIZARD*@
+    <script type='text/javascript' src='~/wizard/js/main.js'></script>
+    <link href="~/wizard/css/smart_wizard.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/wizard/css/smart_wizard_theme_dots.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/wizard/js/jquery.smartWizard.min.js" charset="ISO-8859-1"></script>
+
+    <script type="text/javascript">
+
+    </script>
+
+}

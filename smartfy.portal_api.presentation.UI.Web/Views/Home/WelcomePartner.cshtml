@@ -1,0 +1,319 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<div class="row">
+    <div class="col-6 text-left"><p style="font-weight:900">Bem vindo, @User.Identity.Name</p></div>
+</div>
+
+
+@*WIZARD*@
+<div class="modal fade" id="ModalHelp" tabindex="-1" role="dialog" aria-labelledby="modalHelp" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: black !important; color: yellow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalHelp">DASHBOARD - Ajuda</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="smartwizard">
+                    <ul>
+                        <li><a href="#step-1">Passo 1<br /><small>Bem Vindo</small></a></li>
+                        <li><a href="#step-2">Passo 2<br /><small>Bases de Atendimento</small></a></li>
+                        <li><a href="#step-3">Passo 3<br /><small>Empresas Parceiras</small></a></li>
+                        <li><a href="#step-4">Passo 4<br /><small>Equipes e Câmeras</small></a></li>
+                        <li><a href="#step-5">Passo 5<br /><small>Dúvidas</small></a></li>
+                    </ul>
+                    <div>
+                        <div id="step-1">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-5 mb-2 text-center">
+                                    Bem vindo <b>@User.Identity.Name</b>.
+                                    <br />
+                                    <br />
+                                    Seu cadastro foi enviado para suporte.sp@powerconn.us. Nosso time entrará em contato em breve. <br />
+                                    Vamos mostrar agora as etapas de gestão das sua empresas parceiras.
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-2" class="">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-1 mb-2 text-center">
+                                    <div class="col-md-12">
+                                        <img src="~/images/wizard/cad-area.png" />
+                                    </div>
+                                    <span>
+                                        Após cadastro confirmado pelo nosso time, cadastre as Bases de atendimento da sua empresa
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-3">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-1 mb-2 text-center">
+                                    <div class="col-md-12">
+                                        <img src="~/images/wizard/lista-parceira.png" />
+                                    </div>
+                                    <span>
+                                        Consulte as empreas parceiras vinculadas à sua empresa. <br />O cadastro das parceiras poderá ser feito pelas mesmas
+                                        porém o vínculo será feito pelo nosso time de atendimento.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-4" class="">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-1 mb-2 text-center">
+                                    <div class="col-md-12">
+                                        <img src="~/images/wizard/lista-equipe.png" />
+                                    </div>
+                                    <span>
+                                        Consulte a divisão das equipes das suas parceiras em suas Bases de atendimento.<br /> O cadastro das equipes deverá ser feito pela própria parceira.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-5" class="">
+                            <div class="row" style="height: auto;">
+                                <div class="col-md-12 mt-2 mb-2 text-center">
+                                    <div class="col-md-12 mt-5 mb-2 text-center">
+                                        Seu cadastro está em verificação pelo nosso time.
+                                        <br />
+                                        Em caso de dúvidas ou solicitações enviar e-mail para <br /> <br /> <strong>suporte.sp@powerconn.us</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="~/lib/jquery.tmpl.min.js"></script>
+    <script src="~/js/jquery.guide.js"></script>
+    @*WIZARD*@
+    <script type='text/javascript' src='~/wizard/js/main.js'></script>
+    <link href="~/wizard/css/smart_wizard.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/wizard/css/smart_wizard_theme_dots.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/wizard/js/jquery.smartWizard.min.js" charset="ISO-8859-1"></script>
+
+    <script type="text/javascript">
+
+        function cardText(titulo, conteudo) {
+            return `<div style='background-color: black; border-radius: 10px; padding: 15px; text-align: center;border: 1px solid #424242;'>
+                                <h4 style='color: yellow;'>` + titulo + `</h4>
+                                <img class='round' width='99' height='34' src='/images/logo.png' style="position: absolute;left: 34%;opacity: 0.15;" />
+                                <p> <h6 style='color: yellow;'>` + conteudo + `</h6></p>
+                                </div>`
+        }
+
+        $('#btnTour').click(function () {
+            $("#mainDemo").fadeTo("slow",
+                2.0,
+                function () {
+                    startGuide();
+                });
+        });
+
+        const data = {
+            "teamsCount": 500,
+            "lastWeekCameras": 12,
+            "notConformTeams": 15,
+            "camerasCount": 5000,
+            "camerasInOperationCount": 13 + '/64%',
+            "partners": [
+                {
+                    "id": "00176cc6-7866-41b6-a3bc-c4d30c8706e2",
+                    "name": "Empresa 002",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 39.15
+                }, {
+                    "id": "3b3dd63a-4784-4551-a7b8-9692415559ad",
+                    "name": "Empresa 003",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "beed8fc8-dbc1-4723-986a-6fbf8f3f6b50",
+                    "name": "Empresa 004",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "1488b162-1581-4dde-9cf6-631e964ade51",
+                    "name": "Empresa 005",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "6a18e44f-ba44-4de1-8f79-27d3e8636e8a",
+                    "name": "Empresa 006",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "cf715321-fd9c-4005-8f6c-8d46b4bcc540",
+                    "name": "Empresa 007",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "1a4fe06a-cd28-4b65-b6eb-029f2f24e53b",
+                    "name": "Empresa 008",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "ff4b9a05-0312-42d5-b873-42951f82f62e",
+                    "name": "Empresa 009",
+                    "registered": "20/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "fed0d7d6-337e-402d-a53f-2f685dbae9f3",
+                    "name": "Empresa 001",
+                    "registered": "21/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }, {
+                    "id": "da0f5222-98f7-4ffe-a7d8-df29833a9e23",
+                    "name": "Empresa 000",
+                    "registered": "21/09/2020",
+                    "contact": null,
+                    "email": null,
+                    "percentage": 0
+                }
+            ],
+            "avgDaysByTeam": 15.82,
+            "avgHoursByDayByTeam": 379.77
+        };
+
+        setTimeout(function () {
+            $('#partners-table tbody tr').empty();
+            $('#camerasCount').text(data.camerasCount);
+            $('#partnersCount').text(data.partners.length);
+            $('#teamsCount').text(data.teamsCount);
+            $('#camerasInOperationCount').text(data.camerasInOperationCount);
+            $('#avgDaysByTeam').text(data.avgDaysByTeam);
+            $('#avgHoursByDayByTeam').text(data.avgHoursByDayByTeam);
+            $('#lastWeekCameras').text(data.lastWeekCameras);
+            $('#notConformTeams').text(data.notConformTeams);
+        },
+            1500);
+
+        var guideIsProgress = false;
+        var startGuide = function () {
+
+            if (guideIsProgress) return;
+            guideIsProgress = true;
+
+            var guide = $.guide({
+                actions: [
+                    {
+                        element: $('#tourStatus'),
+                        content: cardText("Status do Sistema", "Percentual geral de metas diárias das empresas parceiras"),
+                        offsetX: 275,
+                        offsetY: 100
+                    },
+                    {
+                        element: $('#tourTotEquipes'),
+                        content: cardText("Equipes", "Total de equipes cadastradas de todas as empresas parceiras"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotParceiras'),
+                        content: cardText("Parceiras", "Total de empresas parceiras cadastradas"),
+                        offsetX: 250,
+                        offsetY: 0,
+                    },
+                    {
+                        element: $('#tourTotCameras'),
+                        content: cardText("Câmeras", "Total de cameras cadastradas."),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotNCEquipes'),
+                        content: cardText("Equipes", "Total de equipes que estão no status Não Conformes"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotCEquipes'),
+                        content: cardText("Equipes", "Total de equipes que estão no status Conformes"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotServicos'),
+                        content: cardText("Serviços", "Total de solicitações cadastradas"),
+                        offsetX: -250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotGravacoes'),
+                        content: cardText("Gravações", "Total de gravações feitas pelas Equipes"),
+                        offsetX: -250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourPercGravacoes'),
+                        content: cardText("Gravações", "Porcentagem das gravações"),
+                        offsetX: -250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourHourlyAvgTeam'),
+                        content: cardText("Equipes", "Total de média de Hora/Dia por cada equipe"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourDailyAvgTeam'),
+                        content: cardText("Equipes", "Total da média de dias cadastradas por Equipe"),
+                        offsetX: 250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourExpansao'),
+                        content: cardText("Expansao", "Total da expansão da última semana"),
+                        offsetX: -250,
+                        offsetY: 0
+                    },
+                    {
+                        element: $('#tourTotGBs'),
+                        content: cardText("Dados", "Total de Dados gerados"),
+                        offsetX: -200,
+                        offsetY: 0,
+                        beforeFunc: function (g) {
+                            guideIsProgress = false;
+                        }
+                    }
+                ]
+            });
+        }
+
+    </script>
+
+}

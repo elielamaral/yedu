@@ -1,0 +1,207 @@
+﻿@using smartfy.portal_api.presentation.UI.Web.Helpers
+@using smartfy.portal_api.Infra.CrossCutting.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject ApplicationDbContext context
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="SmartFy">
+    <title>Dashboard PWC</title>
+    <!-- Custom fonts for this template-->
+
+    <link href="~/css/coreui/coreui.css" rel="stylesheet">
+    <link href="~/css/coreui/coreui-chartjs.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sl-1.3.1/datatables.min.css" />
+    <link href="~/css/site.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+
+<body id="page-top" class="c-app c-dark-theme">
+    <!-- loading modal -->
+    <div id="modalLoading" style="display: none">
+        <div class="loading-modal text-center">
+            <div class="loading-image">
+                <img src="~/images/loading.png" style="width: 210px;" />
+            </div>
+        </div>
+    </div>
+
+    <!-- loading modal -->
+    <div id="modalMsg" style="display: none" aria-hidden="true">
+        <div class="loading-modal text-center">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class='modal-body' id="ModalTitulo"></h5>
+                        <button class="close" type="button" data-dismiss="modal"></button>
+                        @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>*@
+                    </div>
+                    <div class='modal-body' id="ModalBody">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal mensagens -->
+    <div id='ModalMensagem' class='modal fade' tabindex='999' role='dialog' aria-labelledby='ModalTitulo'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header' id="ModalHeader">
+                    <h5 class='modal-body' id="ModalTitulo"></h5>
+                    <button class="close" type="button" data-dismiss="modal"></button>
+                </div>
+                <div class='modal-body' id="ModalBody">
+                </div>
+                <div class='modal-footer' id="ModalFooter">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+        <div class="c-sidebar-brand d-lg-down-none bg-transparent">
+            <img src="~/images/logo.png" width="156" alt="PowerConn" />
+        </div>
+        <ul class="c-sidebar-nav">
+            @if (!SignInManager.IsSignedIn(User)@*|| !SignInManager.UserManager.GetUserAsync(User).Result.Enabled*@)
+{
+        <li class="c-sidebar-nav-title" style="color: white">Acesso</li>
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" asp-controller="Account" asp-action="Login">
+                <svg class="c-sidebar-nav-icon">
+                    <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-user"></use>
+                </svg> Entrar
+            </a>
+        </li>
+
+    }
+    else
+    {
+        <li><br /></li>
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" asp-controller="Account" asp-action="LogoutEx">
+                <svg class="c-sidebar-nav-icon">
+                    <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                </svg> Sair
+            </a>
+        </li>
+    }
+        </ul>
+        <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+    </div>
+    <div class="c-wrapper c-fixed-components">
+        <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+                <svg class="c-icon c-icon-lg">
+                    <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-menu"></use>
+                </svg>
+            </button>
+            <a class="c-header-brand d-lg-none" href="#">
+                <img width="118" height="31" src="~/images/logo.png" alt="PowerConn" style=" margin: 10px;" />
+            </a>
+            <button style="margin-left:0rem !important;"
+                    class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
+                <svg class="c-icon c-icon-lg" style="height: 56px;">
+                    <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-menu"></use>
+                </svg>
+            </button>
+            <vc:menu-usuario></vc:menu-usuario>
+            <!--<div class="c-subheader px-3">-->
+            <!-- Breadcrumb-->
+            <!--<ol class="breadcrumb border-0 m-0">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>-->
+            <!-- Breadcrumb Menu-->
+            <!--</ol>
+            </div>-->
+        </header>
+        <div class="c-body">
+            <main class="c-main">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </main>
+            <footer class="c-footer">
+                <div><a href="https://powerconn.us">PowerConn</a> © 2020.</div>
+                <div class="ml-auto">Powered by&nbsp;<a href="https://smartyfy.io/">smartyFy</a></div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- CoreUI and necessary plugins-->
+    <script src="~/css/coreui/vendors/@@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <!--[if IE]><!-->
+    <script src="~/css/coreui/vendors/@@coreui/icons/js/svgxuse.min.js"></script>
+    <!--<![endif]-->
+    <!-- Plugins and scripts required by this view-->
+    <script src="~/css/coreui/vendors/@@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+    <script src="~/css/coreui/vendors/@@coreui/utils/js/coreui-utils.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sl-1.3.1/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script src="~/js/site.js"></script>
+    <style type="text/css">
+         /*guid*/
+        .jquery-guide, .jquery-guide-bg {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            z-index: 100000;
+        }
+
+        .jquery-guide-bg {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-color: rgba(0, 0, 0, 0.73);
+            border-style: solid;
+            border-top-width: 0px;
+            border-right-width: 0px;
+            border-bottom-width: 0px;
+            border-left-width: 0px;
+            z-index: 100000;
+        }
+
+        .jquery-guide-bg.active {
+            border-color: rgba(0, 0, 0, 0.5);
+            z-index: 100000;
+        }
+
+        .jquery-guide-content {
+            position: absolute;
+            cursor: default;
+            color: #FFF;
+            z-index: 100000;
+        }
+
+        @RenderSection("Styles", required: false)
+
+    </style>
+
+    @Html.Raw(ModalHelper.GetModal())
+    @ModalHelper.ClearModal()
+</body>
+</html>

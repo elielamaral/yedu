@@ -14,6 +14,7 @@ namespace smartfy.portal_api.Infra.DataManager
 
         public async void InjectAllData()
         {
+            
         }
     }
 }
