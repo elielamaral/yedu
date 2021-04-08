@@ -18,6 +18,9 @@ namespace smartfy.portal_api.domain.Entities
         {
             builder.HasKey(c => c.Id);
             builder.Property(x => x.Id).IsRequired();
+
+
+            
         }
     }
 }

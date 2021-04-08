@@ -40,7 +40,9 @@ namespace smartfy.portal_api.services.WebAPI.Controllers
 
             try
             {
-                return Ok(repository.ToList());
+                return Ok(repository
+                    .Include(c=>c.Course)
+                    .ToList());
             }
             catch (ArgumentException ex)
             {

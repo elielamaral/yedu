@@ -63,7 +63,11 @@ namespace smartfy.portal_api.services.WebAPI.Controllers
 
             try
             {
-                var result = repository.FirstOrDefault(c => c.Id == id);
+                var result = repository
+                    .Include(c=>c.Course)
+                    .Include(c=>c.ContentType)
+                    .FirstOrDefault(c => c.Id == id);
+
                 if (result == null)
                     return NotFound();
 
